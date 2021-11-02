@@ -1,0 +1,4 @@
+org\levelup\university\repository\UniversityRepository.class
+org\levelup\university\UniversityApplication.class
+org\levelup\university\jdbc\JdbsUniversityRepository.class
+org\levelup\university\damain\University.class
