@@ -1,9 +1,11 @@
 package org.levelup.university;
 
+import org.levelup.university.configuration.DatabaseConfiguration;
 import org.levelup.university.damain.University;
 import org.levelup.university.jdbc.DataBaseService;
 import org.levelup.university.jdbc.JdbcFacultiesRepository;
 import org.levelup.university.jdbc.JdbsUniversityRepository;
+import org.levelup.university.reflact.AnnotationConfigurationPropertiesProcessor;
 import org.levelup.university.reflact.ConfigurationPropertiesProcessor;
 import org.levelup.university.repository.FacultiesRepository;
 import org.levelup.university.repository.UniversityRepository;
@@ -16,13 +18,24 @@ public class UniversityApplication {
     public static void main(String[] args) throws SQLException {
 
 
-       /* String configurationFilename = "database.properties";
+        /*String configurationFilename = "database.properties";
         ConfigurationPropertiesProcessor.processConfigurationFile(configurationFilename);
         System.out.println("Application loaded all configuration files");
-        System.out.println("University Application has been started");*/
+        System.out.println(DatabaseConfiguration.getInstance().toString());
+        System.out.println("University Application has been started");
 
 
-        System.out.println("University application has been sterted");
+*/
+
+        String configurationFilename = "database.properties";
+        AnnotationConfigurationPropertiesProcessor.processConfigurationFile(configurationFilename);
+        System.out.println("Application loaded all configuration files");
+        System.out.println(DatabaseConfiguration.getInstance().toString());
+        System.out.println("University Application has been started");
+
+       // DataBaseService dbService = new DataBaseService(DatabaseConfiguration.getInstance());
+
+       /* System.out.println("University application has been sterted");
         DataBaseService dbService = new DataBaseService();
         UniversityRepository universityRepository = new JdbsUniversityRepository(dbService);
         //System.out.println(universityRepository.deleteUniversity(2080L));
@@ -49,6 +62,6 @@ public class UniversityApplication {
         connection.close();
         System.out.println("Connection has been closed");
 
-
+*/
     }
 }
