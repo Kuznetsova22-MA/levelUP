@@ -1,10 +1,11 @@
-package org.levelup.university.jdbc;
+package org.levelup.university.repository.jdbc;
 //Добавление нового факультета к существующему университету. Если указанного университета нет, то генерируем исключение.
 //Получение списка факультетов у университет
 
 import org.levelup.university.damain.Faculties;
 import org.levelup.university.damain.University;
 import org.levelup.university.exeption.NullRowsExeption;
+import org.levelup.university.jdbc.DataBaseService;
 import org.levelup.university.repository.FacultiesRepository;
 
 import java.sql.*;

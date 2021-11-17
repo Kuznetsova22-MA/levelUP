@@ -1,14 +1,13 @@
 package org.levelup.university;
 
+import org.hibernate.SessionFactory;
+import org.levelup.university.configuration.DatabaseConfiguration;
+import org.levelup.university.configuration.HibernateConfiguration;
 import org.levelup.university.damain.University;
-import org.levelup.university.jdbc.DataBaseService;
-import org.levelup.university.jdbc.JdbcFacultiesRepository;
-import org.levelup.university.jdbc.JdbsUniversityRepository;
-import org.levelup.university.reflact.ConfigurationPropertiesProcessor;
-import org.levelup.university.repository.FacultiesRepository;
+import org.levelup.university.reflact.AnnotationConfigurationPropertiesProcessor;
 import org.levelup.university.repository.UniversityRepository;
+import org.levelup.university.repository.hbm.HibernateUniversityRepositor;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,13 +15,45 @@ public class UniversityApplication {
     public static void main(String[] args) throws SQLException {
 
 
-       /* String configurationFilename = "database.properties";
+        /*String configurationFilename = "database.properties";
         ConfigurationPropertiesProcessor.processConfigurationFile(configurationFilename);
         System.out.println("Application loaded all configuration files");
-        System.out.println("University Application has been started");*/
+        System.out.println(DatabaseConfiguration.getInstance().toString());
+        System.out.println("University Application has been started");
 
 
-        System.out.println("University application has been sterted");
+*/
+
+        String configurationFilename = "database.properties";
+        AnnotationConfigurationPropertiesProcessor.processConfigurationFile(configurationFilename);
+        System.out.println("Application loaded all configuration files");
+        HibernateConfiguration.configure(DatabaseConfiguration.getInstance());
+        System.out.println("Hibernate has been configured successfully");
+        SessionFactory factory = HibernateConfiguration.getSessionFactory();
+
+        UniversityRepository universityRepository = new HibernateUniversityRepositor(factory);
+        List<University> universities = universityRepository.findAll();
+        for (University u: universities){
+            System.out.println(u);
+        }
+//        University u = universityRepository.createUniversity("Высшая Школа Экономики", "ВШЭ", null);
+//        System.out.println(u);
+
+        factory.close();
+
+        /*System.out.println(DatabaseConfiguration.getInstance().toString());
+        DataBaseService dbService = new DataBaseService(DatabaseConfiguration.getInstance());
+        dbService.fillPool();
+        System.out.println("Connection pool has been initialized");
+
+        System.out.println("University Application has been started");
+        Connection proxy = dbService.openConnection();
+        proxy.close();
+        System.out.println();*/
+
+       // DataBaseService dbService = new DataBaseService(DatabaseConfiguration.getInstance());
+
+       /* System.out.println("University application has been sterted");
         DataBaseService dbService = new DataBaseService();
         UniversityRepository universityRepository = new JdbsUniversityRepository(dbService);
         //System.out.println(universityRepository.deleteUniversity(2080L));
@@ -49,6 +80,6 @@ public class UniversityApplication {
         connection.close();
         System.out.println("Connection has been closed");
 
-
+*/
     }
 }

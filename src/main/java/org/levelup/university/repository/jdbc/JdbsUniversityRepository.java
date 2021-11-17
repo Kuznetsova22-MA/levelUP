@@ -1,7 +1,8 @@
-package org.levelup.university.jdbc;
+package org.levelup.university.repository.jdbc;
 
 import org.levelup.university.damain.University;
 import org.levelup.university.exeption.NullRowsExeption;
+import org.levelup.university.jdbc.DataBaseService;
 import org.levelup.university.repository.UniversityRepository;
 
 import java.sql.*;
